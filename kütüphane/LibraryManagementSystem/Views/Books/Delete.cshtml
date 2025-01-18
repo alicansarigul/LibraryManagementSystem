@@ -1,0 +1,55 @@
+@model LibraryManagementSystem.Models.Book
+
+@{
+    // Sayfanın başlığını ayarlıyoruz
+    ViewData["Title"] = "Kitap Sil";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Kitap Sil</h1>
+
+@* Kullanıcıya silme işlemi için uyarı mesajı *@
+<div class="alert alert-danger">
+    <h3>Bu kitabı silmek istediğinizden emin misiniz?</h3>
+</div>
+
+@* Silinecek kitabın detaylarını gösteren bölüm *@
+<div class="row">
+    <div class="col-md-6">
+        @* Kitap bilgilerini liste halinde göster *@
+        <dl class="row">
+            @* Kitap Adı *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Title)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+            @* Yazar *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Author)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Author)</dd>
+
+            @* ISBN *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ISBN)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.ISBN)</dd>
+
+            @* Yayın Yılı *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PublishYear)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.PublishYear)</dd>
+
+            @* Yayınevi *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Publisher)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Publisher)</dd>
+
+            @* Mevcut Durumu *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.IsAvailable)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.IsAvailable)</dd>
+        </dl>
+
+        @* Silme onay formu *@
+        <form asp-action="Delete">
+            @* Kitap Id'sini gizli input olarak gönder *@
+            <input type="hidden" asp-for="Id" />
+            @* Silme ve İptal butonları *@
+            <input type="submit" value="Sil" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </form>
+    </div>
+</div>

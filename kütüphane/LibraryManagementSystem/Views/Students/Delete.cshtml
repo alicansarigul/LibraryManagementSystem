@@ -1,0 +1,65 @@
+@model LibraryManagementSystem.Models.Student
+
+@{
+    // Sayfanın başlığını ayarlıyoruz
+    ViewData["Title"] = "Öğrenci Sil";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Öğrenci Sil</h1>
+
+@* Kullanıcıya silme işlemi için uyarı mesajı *@
+<div class="alert alert-danger">
+    <h3>Bu öğrenciyi silmek istediğinizden emin misiniz?</h3>
+</div>
+
+@* Silinecek öğrencinin detaylarını gösteren bölüm *@
+<div class="row">
+    <div class="col-md-6">
+        @* Öğrenci bilgilerini liste halinde göster *@
+        <dl class="row">
+            @* Öğrenci Numarası *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StudentNumber)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.StudentNumber)</dd>
+
+            @* Öğrenci Adı *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.FirstName)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.FirstName)</dd>
+
+            @* Öğrenci Soyadı *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.LastName)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.LastName)</dd>
+
+            @* Sınıf *@
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Class)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Class)</dd>
+
+            @* Telefon (varsa göster) *@
+            @if (!string.IsNullOrEmpty(Model.Phone))
+            {
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Phone)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Phone)</dd>
+            }
+
+            @* E-posta (varsa göster) *@
+            @if (!string.IsNullOrEmpty(Model.Email))
+            {
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+            }
+        </dl>
+
+        @* Silme onay formu *@
+        <form asp-action="Delete" method="post">
+            @* Öğrenci Id'sini gizli input olarak gönder *@
+            <input type="hidden" asp-for="Id" />
+            @* Silme ve İptal butonları *@
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Sil
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Listeye Dön
+            </a>
+        </form>
+    </div>
+</div>

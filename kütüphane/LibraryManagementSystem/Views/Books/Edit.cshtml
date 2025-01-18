@@ -1,0 +1,76 @@
+@model LibraryManagementSystem.Models.Book
+
+@{
+    // Sayfanın başlığını ayarlıyoruz
+    ViewData["Title"] = "Kitap Düzenle";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Kitap Düzenle</h1>
+
+@* Form için grid yapısı - 6 kolonluk bir alan kullanıyoruz *@
+<div class="row">
+    <div class="col-md-6">
+        @* Kitap düzenleme formu - Edit action'ına post yapacak *@
+        <form asp-action="Edit">
+            @* Validation özeti - model seviyesindeki hataları gösterir *@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* Kitabın Id'sini gizli input olarak gönder *@
+            <input type="hidden" asp-for="Id" />
+
+            @* Kitap Adı alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            @* Yazar alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+
+            @* ISBN alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="ISBN" class="control-label"></label>
+                <input asp-for="ISBN" class="form-control" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+
+            @* Yayın Yılı alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="PublishYear" class="control-label"></label>
+                <input asp-for="PublishYear" class="form-control" />
+                <span asp-validation-for="PublishYear" class="text-danger"></span>
+            </div>
+
+            @* Yayınevi alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Publisher" class="control-label"></label>
+                <input asp-for="Publisher" class="form-control" />
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </div>
+
+            @* Mevcut mu? checkbox'ı *@
+            <div class="form-group mb-3">
+                <div class="form-check">
+                    <input asp-for="IsAvailable" class="form-check-input" />
+                    <label asp-for="IsAvailable" class="form-check-label"></label>
+                </div>
+            </div>
+
+            @* Form butonları - Kaydet ve Listeye Dön *@
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Client-side validation için gerekli script'leri ekle *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

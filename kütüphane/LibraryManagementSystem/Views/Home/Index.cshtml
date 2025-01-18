@@ -1,0 +1,79 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Toplam Kitap</h5>
+                <p class="card-text display-4">@Model.TotalBooks</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Mevcut Kitaplar</h5>
+                <p class="card-text display-4">@Model.AvailableBooks</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">Ödünç Verilen</h5>
+                <p class="card-text display-4">@(Model.TotalBooks - Model.AvailableBooks)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2>Son Eklenen Kitaplar</h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var book in Model.RecentBooks)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@book.Author</h6>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <i class="bi bi-calendar"></i> @book.PublishYear
+                        </small>
+                        <br />
+                        <small class="text-muted">
+                            <i class="bi bi-building"></i> @book.Publisher
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        @if (book.IsAvailable)
+                        {
+                            <span class="badge bg-success">Mevcut</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Ödünç Verildi</span>
+                        }
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil"></i> Düzenle
+                    </a>
+                    <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-sm btn-danger">
+                        <i class="bi bi-trash"></i> Sil
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

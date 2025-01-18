@@ -1,0 +1,75 @@
+@model LibraryManagementSystem.Models.Student
+
+@{
+    // Sayfanın başlığını ayarlıyoruz
+    ViewData["Title"] = "Öğrenci Düzenle";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Öğrenci Düzenle</h1>
+
+@* Form için grid yapısı - 6 kolonluk bir alan kullanıyoruz *@
+<div class="row">
+    <div class="col-md-6">
+        @* Öğrenci düzenleme formu - Edit action'ına post yapacak *@
+        <form asp-action="Edit">
+            @* Validation özeti - model seviyesindeki hataları gösterir *@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* Öğrenci Id'sini gizli input olarak gönder *@
+            <input type="hidden" asp-for="Id" />
+            
+            @* Öğrenci Numarası alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="StudentNumber" class="control-label"></label>
+                <input asp-for="StudentNumber" class="form-control" />
+                <span asp-validation-for="StudentNumber" class="text-danger"></span>
+            </div>
+
+            @* Öğrenci Adı alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            @* Öğrenci Soyadı alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            @* Sınıf alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Class" class="control-label"></label>
+                <input asp-for="Class" class="form-control" />
+                <span asp-validation-for="Class" class="text-danger"></span>
+            </div>
+
+            @* Telefon alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            @* E-posta alanı *@
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            @* Form butonları - Kaydet ve Listeye Dön *@
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Client-side validation için gerekli script'leri ekle *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

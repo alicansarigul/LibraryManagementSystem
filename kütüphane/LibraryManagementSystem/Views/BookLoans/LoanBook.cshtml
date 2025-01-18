@@ -1,0 +1,45 @@
+@model LibraryManagementSystem.Models.BookLoan
+
+@{
+    // Sayfanın başlığını ayarlıyoruz
+    ViewData["Title"] = "Kitap Ödünç Ver";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Kitap Ödünç Ver</h1>
+
+@* Form için grid yapısı - 6 kolonluk bir alan kullanıyoruz *@
+<div class="row">
+    <div class="col-md-6">
+        @* Hata mesajı varsa göster *@
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        @* Kitap verilecek öğrencinin adını göster *@
+        <h4>Öğrenci: @ViewData["StudentName"]</h4>
+
+        @* Kitap ödünç verme formu *@
+        <form asp-action="LoanBook" method="post">
+            @* Öğrenci Id'sini gizli input olarak gönder *@
+            <input type="hidden" name="studentId" value="@ViewData["StudentId"]" />
+            
+            @* Kitap seçme dropdown'ı *@
+            <div class="form-group mb-3">
+                <label class="control-label">Kitap</label>
+                <select name="bookId" class="form-select" asp-items="ViewBag.BookId" required>
+                    <option value="">-- Kitap Seçin --</option>
+                </select>
+            </div>
+
+            @* Form butonları - Ödünç Ver ve İptal *@
+            <div class="form-group">
+                <input type="submit" value="Ödünç Ver" class="btn btn-primary" />
+                <a asp-controller="Students" asp-action="Index" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@model IEnumerable<LibraryManagementSystem.Models.Book>
+
+@{
+    // Sayfanın başlığını "Kitap Listesi" olarak ayarlıyoruz
+    ViewData["Title"] = "Kitap Listesi";
+}
+
+@* Sayfanın ana başlığı *@
+<h1>Kitap Listesi</h1>
+
+@* Yeni kitap ekleme butonu *@
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kitap Ekle</a>
+</p>
+
+@* Kitapların listeleneceği tablo *@
+<table class="table">
+    <thead>
+        <tr>
+            @* Tablo başlıkları - Model'deki property isimlerini kullanıyoruz *@
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Author)</th>
+            <th>@Html.DisplayNameFor(model => model.ISBN)</th>
+            <th>@Html.DisplayNameFor(model => model.PublishYear)</th>
+            <th>@Html.DisplayNameFor(model => model.Publisher)</th>
+            <th>@Html.DisplayNameFor(model => model.IsAvailable)</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Her bir kitap için bir tablo satırı oluşturuyoruz *@
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* Kitap bilgilerini hücreler halinde yazdırıyoruz *@
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                <td>@Html.DisplayFor(modelItem => item.ISBN)</td>
+                <td>@Html.DisplayFor(modelItem => item.PublishYear)</td>
+                <td>@Html.DisplayFor(modelItem => item.Publisher)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsAvailable)</td>
+                <td>
+                    @* Her kitap için düzenleme ve silme butonları *@
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
